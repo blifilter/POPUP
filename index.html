@@ -7,25 +7,24 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body {
-  font-family: 'Heebo', sans-serif;
-  direction: rtl;
-}
+body { font-family: 'Heebo', sans-serif; direction: rtl; }
 
-/* ── OVERLAY ── */
 .popup-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(4px);
-  z-index: 9999;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.78);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 999999;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s ease, visibility 0.4s ease;
+  /* קבוע — לא גולל עם הדף */
+  overflow: hidden;
 }
 
 .popup-overlay.show {
@@ -33,16 +32,15 @@ body {
   visibility: visible;
 }
 
-/* ── BANNER ── */
 .banner {
   width: 100%;
-  max-width: 420px;
-  background: linear-gradient(135deg, #1a0505 0%, #2d0a0a 50%, #1a0505 100%);
+  max-width: 360px;
+  background: linear-gradient(135deg, #1a0505 0%, #2d0a0a 60%, #1a0505 100%);
   border: 1px solid rgba(212,168,67,0.25);
-  border-radius: 24px;
-  padding: 28px 24px;
+  border-radius: 22px;
+  padding: clamp(20px, 5vw, 28px) clamp(16px, 5vw, 24px);
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(192,57,43,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(192,57,43,0.15);
   position: relative;
   overflow: hidden;
   transform: scale(0.85) translateY(30px);
@@ -57,28 +55,20 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(212,168,67,0.015) 0px,
-    rgba(212,168,67,0.015) 1px,
-    transparent 1px,
-    transparent 14px
-  );
+  background: repeating-linear-gradient(45deg, rgba(212,168,67,0.015) 0px, rgba(212,168,67,0.015) 1px, transparent 1px, transparent 14px);
   pointer-events: none;
 }
 
-/* ── סגירה ── */
 .close-btn {
   position: absolute;
-  top: 14px;
-  left: 14px;
-  width: 30px;
-  height: 30px;
+  top: 12px;
+  left: 12px;
+  width: 28px; height: 28px;
   border-radius: 50%;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.12);
   color: rgba(255,255,255,0.5);
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -88,7 +78,6 @@ body {
 }
 .close-btn:hover { background: rgba(255,255,255,0.15); color: white; }
 
-/* ── תג מבצע ── */
 .sale-tag {
   display: inline-block;
   background: linear-gradient(135deg, #c0392b, #7b1a1a);
@@ -97,28 +86,27 @@ body {
   font-weight: 900;
   letter-spacing: 3px;
   text-transform: uppercase;
-  padding: 5px 16px;
+  padding: 5px 14px;
   border-radius: 50px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.4); }
-  50%       { box-shadow: 0 0 0 8px rgba(192,57,43,0); }
+  0%,100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.4); }
+  50%      { box-shadow: 0 0 0 8px rgba(192,57,43,0); }
 }
 
-/* ── מחירים ── */
 .price-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .price-old {
-  font-size: 22px;
+  font-size: clamp(18px, 5vw, 22px);
   font-weight: 400;
   color: rgba(255,255,255,0.3);
   position: relative;
@@ -132,31 +120,30 @@ body {
   transform: rotate(-8deg);
 }
 
-.price-arrow { font-size: 18px; color: rgba(212,168,67,0.6); }
+.price-arrow { font-size: 16px; color: rgba(212,168,67,0.6); }
 
 .price-new {
-  font-size: 46px;
+  font-size: clamp(36px, 10vw, 46px);
   font-weight: 900;
   color: #f0c060;
   line-height: 1;
   text-shadow: 0 0 30px rgba(212,168,67,0.4);
 }
-.price-new span { font-size: 20px; font-weight: 400; color: rgba(240,192,96,0.7); }
+.price-new span { font-size: clamp(16px, 4vw, 20px); font-weight: 400; color: rgba(240,192,96,0.7); }
 
-/* ── טיימר ── */
 .timer-label {
   font-size: 11px;
   letter-spacing: 2px;
   color: rgba(255,255,255,0.35);
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .timer {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-bottom: 24px;
+  gap: 6px;
+  margin-bottom: 20px;
 }
 
 .timer-block {
@@ -170,12 +157,12 @@ body {
   background: rgba(255,255,255,0.07);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 10px;
-  width: 52px;
-  height: 52px;
+  width: clamp(44px, 13vw, 52px);
+  height: clamp(44px, 13vw, 52px);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: clamp(20px, 6vw, 24px);
   font-weight: 900;
   color: white;
   letter-spacing: -1px;
@@ -190,21 +177,20 @@ body {
 .timer-unit { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 1px; }
 
 .timer-sep {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 900;
   color: rgba(255,255,255,0.2);
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
-/* ── כפתור ── */
 .buy-btn {
   display: block;
   width: 100%;
-  padding: 18px;
+  padding: 16px;
   background: linear-gradient(135deg, #c0392b, #e74c3c);
   color: white;
   font-family: 'Heebo', sans-serif;
-  font-size: 18px;
+  font-size: clamp(16px, 4.5vw, 18px);
   font-weight: 900;
   border: none;
   border-radius: 50px;
@@ -212,7 +198,6 @@ body {
   text-decoration: none;
   box-shadow: 0 6px 30px rgba(192,57,43,0.5);
   transition: transform 0.15s, box-shadow 0.15s;
-  letter-spacing: 0.5px;
   position: relative;
   overflow: hidden;
 }
@@ -227,16 +212,16 @@ body {
 }
 
 @keyframes shine {
-  0%   { left: -100%; }
-  40%  { left: 100%; }
-  100% { left: 100%; }
+  0%  { left: -100%; }
+  40% { left: 100%; }
+  100%{ left: 100%; }
 }
 
-.buy-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(192,57,43,0.65); }
+.buy-btn:hover  { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(192,57,43,0.65); }
 .buy-btn:active { transform: scale(0.97); }
 
 .buy-btn-sub {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 400;
   opacity: 0.8;
   margin-top: 3px;
@@ -244,7 +229,7 @@ body {
 }
 
 .stock-note {
-  margin-top: 14px;
+  margin-top: 12px;
   font-size: 12px;
   color: rgba(255,255,255,0.3);
 }
@@ -253,9 +238,9 @@ body {
 </head>
 <body>
 
-<div class="popup-overlay" id="popup">
+<div class="popup-overlay" id="bfPopup">
   <div class="banner">
-    <button class="close-btn" onclick="closePopup()">✕</button>
+    <button class="close-btn" onclick="closeBfPopup()">✕</button>
     <div class="sale-tag">⚡ מבצע מוגבל</div>
 
     <div class="price-wrap">
@@ -267,22 +252,22 @@ body {
     <div class="timer-label">המבצע נגמר בעוד</div>
     <div class="timer">
       <div class="timer-block">
-        <div class="timer-num" id="hours">00</div>
+        <div class="timer-num" id="bfHours">00</div>
         <div class="timer-unit">שעות</div>
       </div>
       <div class="timer-sep">:</div>
       <div class="timer-block">
-        <div class="timer-num" id="minutes">00</div>
+        <div class="timer-num" id="bfMinutes">00</div>
         <div class="timer-unit">דקות</div>
       </div>
       <div class="timer-sep">:</div>
       <div class="timer-block">
-        <div class="timer-num" id="seconds">00</div>
+        <div class="timer-num" id="bfSeconds">00</div>
         <div class="timer-unit">שניות</div>
       </div>
     </div>
 
-    <a class="buy-btn" href="#" id="buyBtn">
+    <a class="buy-btn" href="#" id="bfBuyBtn">
       🛒 לרכישה עכשיו
       <span class="buy-btn-sub">גישה מיידית • תשלום מאובטח</span>
     </a>
@@ -292,54 +277,51 @@ body {
 </div>
 
 <script>
-// ── הגדרות ──
-const DELAY_SECONDS = 15;   // כמה שניות לחכות לפני שקופץ
-const TIMER_HOURS   = 24;   // כמה שעות הטיימר רץ
-const STORAGE_KEY   = 'blifilter_popup_seen';
+(function() {
+  var DELAY   = 15000;   // 15 שניות
+  var HOURS   = 24;
+  var KEY     = 'blifilter_popup_v1';
 
-// ── פופאפ רק פעם אחת ──
-function showPopup() {
-  if (localStorage.getItem(STORAGE_KEY)) return; // כבר ראה
-  document.getElementById('popup').classList.add('show');
-}
+  function pad(n) { return String(n).padStart(2,'0'); }
 
-function closePopup() {
-  document.getElementById('popup').classList.remove('show');
-  localStorage.setItem(STORAGE_KEY, '1'); // שמור שראה
-}
+  function closeBfPopup() {
+    document.getElementById('bfPopup').classList.remove('show');
+    localStorage.setItem(KEY, '1');
+  }
+  window.closeBfPopup = closeBfPopup;
 
-// סגירה בלחיצה על הרקע
-document.getElementById('popup').addEventListener('click', function(e) {
-  if (e.target === this) closePopup();
-});
+  // סגירה בלחיצה על הרקע
+  document.getElementById('bfPopup').addEventListener('click', function(e) {
+    if (e.target === this) closeBfPopup();
+  });
 
-// הצג אחרי 15 שניות
-setTimeout(showPopup, DELAY_SECONDS * 1000);
+  // הצג רק פעם אחת
+  if (!localStorage.getItem(KEY)) {
+    setTimeout(function() {
+      document.getElementById('bfPopup').classList.add('show');
+    }, DELAY);
+  }
 
-// ── טיימר ──
-const endTime = new Date().getTime() + TIMER_HOURS * 60 * 60 * 1000;
+  // טיימר
+  var endTime = new Date().getTime() + HOURS * 3600000;
 
-function pad(n) { return String(n).padStart(2, '0'); }
+  function updateTimer() {
+    var diff = Math.max(0, endTime - new Date().getTime());
+    var h = Math.floor(diff / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    var secEl = document.getElementById('bfSeconds');
+    secEl.classList.add('tick');
+    setTimeout(function(){ secEl.classList.remove('tick'); }, 300);
+    document.getElementById('bfHours').textContent   = pad(h);
+    document.getElementById('bfMinutes').textContent = pad(m);
+    document.getElementById('bfSeconds').textContent = pad(s);
+    if (diff === 0) clearInterval(timer);
+  }
 
-function updateTimer() {
-  const diff = Math.max(0, endTime - new Date().getTime());
-  const h = Math.floor(diff / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  const s = Math.floor((diff % 60000) / 1000);
-
-  const secEl = document.getElementById('seconds');
-  secEl.classList.add('tick');
-  setTimeout(() => secEl.classList.remove('tick'), 300);
-
-  document.getElementById('hours').textContent   = pad(h);
-  document.getElementById('minutes').textContent = pad(m);
-  document.getElementById('seconds').textContent = pad(s);
-
-  if (diff === 0) clearInterval(interval);
-}
-
-const interval = setInterval(updateTimer, 1000);
-updateTimer();
+  var timer = setInterval(updateTimer, 1000);
+  updateTimer();
+})();
 </script>
 </body>
 </html>
